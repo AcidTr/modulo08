@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
-
-  function handleAdd() {
+  /*
+    useCallcak evita que uma função seja montada do zero sempre que o componente
+    é alterado. Se esquecer de preencher o array de dependências, o eslint faz
+    o preenchimento
+  */
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [newTech, tech]);
 
   /*
     Com o array vazio, substitui o componentDidMount, pois como não tem nenhum estado
